@@ -305,8 +305,8 @@ function classifyCategory(text: string, workspaceType: string): string {
   
   // Workspace-specific categories
   if (workspaceType === 'EDUCATION') {
-    categoryPatterns['Academic Appeal'] = [...categoryPatterns['Academic Appeal'], 'transcript', 'enrollment']
-    categoryPatterns['Faculty Request'] = ['faculty', 'research', 'sabbatical', 'tenure']
+    categoryPatterns['Academic Appeal'] = [...categoryPatterns['Academic Appeal'], 'transcript', 'enrollment'];
+    (categoryPatterns as any)['Faculty Request'] = ['faculty', 'research', 'sabbatical', 'tenure']
   }
   
   for (const [category, keywords] of Object.entries(categoryPatterns)) {
@@ -498,5 +498,5 @@ function extractMatches(text: string, patterns: RegExp[]): string[] {
       matches.push(...found)
     }
   })
-  return [...new Set(matches.slice(0, 10))] // Remove duplicates and limit
+  return Array.from(new Set(matches.slice(0, 10))) // Remove duplicates and limit
 }

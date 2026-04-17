@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Orion Copilot - AI Workflow Assistant",
   description: "Turn messy documents into clear actions in seconds. AI-powered workflow assistant for operations, support, and administration.",
   keywords: ["AI", "workflow", "document analysis", "automation", "productivity"],
-  authors: [{ name: "Aryan Choudhary", email: "aryancta@gmail.com" }],
+  authors: [{ name: "Aryan Choudhary" }],
   openGraph: {
     title: "Orion Copilot - AI Workflow Assistant",
     description: "Turn messy documents into clear actions in seconds",
@@ -26,7 +26,6 @@ export const metadata: Metadata = {
     title: "Orion Copilot - AI Workflow Assistant",
     description: "Turn messy documents into clear actions in seconds",
   },
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
 }
 

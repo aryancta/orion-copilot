@@ -171,7 +171,8 @@ async function generateAnswer(
   // Default contextual response
   const recentItems = items.slice(0, 3)
   const totalItems = items.length
-  const categories = [...new Set(items.map(item => item.category).filter(Boolean))]
+  const categorySet = new Set(items.map(item => item.category).filter(Boolean))
+  const categories = Array.from(categorySet)
   
   return `Based on your workspace with ${totalItems} items across ${categories.length} categories, the most recent items are: ${recentItems.map(item => `"${item.title}"`).join(', ')}. You can ask me about specific categories, priorities, or status updates.`
 }

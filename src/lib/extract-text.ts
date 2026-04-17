@@ -86,7 +86,7 @@ async function extractFromPDF(file: File): Promise<ExtractionResult> {
   const uint8Array = new Uint8Array(arrayBuffer)
   
   // Check if it looks like a PDF (starts with %PDF)
-  const pdfHeader = String.fromCharCode(...uint8Array.slice(0, 4))
+  const pdfHeader = String.fromCharCode.apply(null, Array.from(uint8Array.slice(0, 4)))
   if (pdfHeader !== '%PDF') {
     throw new Error('Invalid PDF file format')
   }
@@ -126,7 +126,7 @@ async function extractFromDOCX(file: File): Promise<ExtractionResult> {
     
     // Check if it's a valid ZIP file (DOCX is a ZIP archive)
     const uint8Array = new Uint8Array(arrayBuffer)
-    const zipHeader = String.fromCharCode(...uint8Array.slice(0, 2))
+    const zipHeader = String.fromCharCode.apply(null, Array.from(uint8Array.slice(0, 2)))
     
     if (zipHeader !== 'PK') {
       throw new Error('Invalid DOCX file format')

@@ -40,6 +40,7 @@ export function UploadPanel({ workspaceId }: UploadPanelProps) {
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFileUpload(e.dataTransfer.files[0])
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleFileUpload = async (file: File) => {
