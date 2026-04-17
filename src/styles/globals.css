@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 200 100% 50%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 200 100% 50%;
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 200 100% 50%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 200 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 25%, #6366f1 50%, #8b5cf6 75%, #a855f7 100%);
+  }
+  
+  .gradient-card {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 25%, #6366f1 50%, #8b5cf6 75%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .status-badge-queued {
+    @apply bg-slate-500/20 text-slate-300 border-slate-500/30;
+  }
+  
+  .status-badge-processing {
+    @apply bg-blue-500/20 text-blue-300 border-blue-500/30;
+  }
+  
+  .status-badge-completed {
+    @apply bg-green-500/20 text-green-300 border-green-500/30;
+  }
+  
+  .status-badge-failed {
+    @apply bg-red-500/20 text-red-300 border-red-500/30;
+  }
+  
+  .status-badge-resolved {
+    @apply bg-emerald-500/20 text-emerald-300 border-emerald-500/30;
+  }
+
+  .priority-badge-low {
+    @apply bg-slate-500/20 text-slate-300 border-slate-500/30;
+  }
+  
+  .priority-badge-medium {
+    @apply bg-yellow-500/20 text-yellow-300 border-yellow-500/30;
+  }
+  
+  .priority-badge-high {
+    @apply bg-orange-500/20 text-orange-300 border-orange-500/30;
+  }
+  
+  .priority-badge-critical {
+    @apply bg-red-500/20 text-red-300 border-red-500/30;
+  }
+
+  .risk-badge-low {
+    @apply bg-green-500/20 text-green-300 border-green-500/30;
+  }
+  
+  .risk-badge-medium {
+    @apply bg-yellow-500/20 text-yellow-300 border-yellow-500/30;
+  }
+  
+  .risk-badge-high {
+    @apply bg-red-500/20 text-red-300 border-red-500/30;
+  }
+}

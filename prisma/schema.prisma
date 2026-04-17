@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Workspace {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        String   // 'ENTERPRISE' or 'EDUCATION'
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  items       AnalysisItem[]
+  questions   WorkspaceQuestion[]
+  
+  @@map("workspaces")
+}
+
+model AnalysisItem {
+  id            String     @id @default(cuid())
+  workspaceId   String
+  title         String
+  sourceType    String     // 'FILE' or 'TEXT'
+  filename      String?
+  mimeType      String?
+  rawContent    String
+  extractedText String
+  status        String     @default("QUEUED") // 'QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED', 'RESOLVED'
+  category      String?
+  priority      String?    // 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL'
+  riskLevel     String?    // 'LOW', 'MEDIUM', 'HIGH'
+  summary       String?
+  recommendation String?
+  confidence    Float?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  resolvedAt    DateTime?
+  
+  workspace     Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  analysis      AnalysisResult?
+  auditEvents   AuditEvent[]
+  
+  @@map("analysis_items")
+}
+
+model AnalysisResult {
+  id            String   @id @default(cuid())
+  itemId        String   @unique
+  summary       String
+  actionItems   String   // JSON array of strings
+  entities      String   // JSON array of extracted entities
+  signals       String   // JSON object of detected keywords, deadlines, risk indicators
+  priorityScore Int      // 0 to 100
+  riskScore     Int      // 0 to 100
+  category      String
+  recommendation String
+  modelVersion  String   @default("v1.0")
+  createdAt     DateTime @default(now())
+  
+  item          AnalysisItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  
+  @@map("analysis_results")
+}
+
+model AuditEvent {
+  id          String   @id @default(cuid())
+  itemId      String
+  eventType   String   // uploaded, extracted, classified, summarized, resolved
+  message     String   // human-readable explanation
+  metadata    String   // JSON object with structured debug details
+  createdAt   DateTime @default(now())
+  
+  item        AnalysisItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  
+  @@map("audit_events")
+}
+
+model WorkspaceQuestion {
+  id          String   @id @default(cuid())
+  workspaceId String
+  question    String
+  answer      String
+  citations   String   // JSON array of citation objects
+  confidence  Float
+  createdAt   DateTime @default(now())
+  
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  
+  @@map("workspace_questions")
+}
+
+model AppConfig {
+  id                String        @id @default("singleton")
+  activeWorkspaceId String?
+  analysisMode      String        @default("FAST") // 'FAST' or 'DEEP'
+  demoScenario      String        @default("ENTERPRISE") // 'ENTERPRISE' or 'EDUCATION'
+  theme             String        @default("DARK") // 'DARK' or 'LIGHT'
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@map("app_config")
+}
